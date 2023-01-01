@@ -15,6 +15,7 @@
           size="32"
           dense
           small
+          v-bind="$attrs"
         />
       </v-col>
     </v-row>
