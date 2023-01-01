@@ -11,11 +11,11 @@
       <v-col class="ratingPaddingMargin">
         <v-rating
           length="5"
-          :value="cValue"
+          v-model="cValue"
           size="32"
           dense
           small
-          />
+        />
       </v-col>
     </v-row>
   </div>
@@ -25,8 +25,8 @@
 export default {
   props: {
     value: {
-      type: Boolean,
-      default: 3
+      type: Number,
+      required: true
     },
   },
   computed: {
@@ -34,8 +34,9 @@ export default {
       get() {
         return this.value
       },
-      set(newValue) {
-        this.cValue = newValue
+      set(value) {
+        console.log()
+        this.$emit('input', value)
       }
     }
   },
