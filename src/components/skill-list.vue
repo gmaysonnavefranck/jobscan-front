@@ -19,19 +19,27 @@
         <skill-chip v-for="skill in cSkills" :key="skill.id" :skill="skill"/>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col align="end">
+        <v-btn class="mr-5 mb-5" outlined color="primary" @click="searchJobs()">
+          Find jobs
+        </v-btn>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
 <script>
 import SkillChip from './skill-chip.vue'
+import Service from '@/service/service'
+
+
 export default {
   components: {
     SkillChip,
   },
   data() {
-    return {
-      skills: []
-    }
+    return {}
   },
   computed: {
     cHasSkillsRegistered() {
@@ -39,6 +47,13 @@ export default {
     },
     cSkills() {
       return this.$store.getters['skill/getSkills']
+    }
+  },
+  methods: {
+    async test() {
+
+      await Service.getJobPostings(this.cSkills.map(skill => skill.name));
+
     }
   },
 }

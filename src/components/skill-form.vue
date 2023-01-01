@@ -107,7 +107,6 @@ export default {
       }
       this.$emit('newSkill', data)
       this.$refs.form.reset()
-      this.getSkills();
       this.ratingValue = 3;
     }
   },
