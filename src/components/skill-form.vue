@@ -6,6 +6,7 @@
           <h3>
             Add Your Skills
           </h3>
+          <h5 class="red--text" v-if="cFormDisabled">You can only have 10 skills registered!</h5>
         </v-col>
       </v-row>
       <v-row class="ma-3" dense>
@@ -24,15 +25,15 @@
             dense
             required
             :rules="rules.required"
-            :disabled="disableForm"
+            :disabled="cFormDisabled"
           />
         </v-col>
         <v-col cols="12" sm="3" class="skill-form__rating">
           <rating
             v-model="ratingValue"
-            :readonly="disableForm"
-            :color="disableForm ? 'disabled' : 'primary'"
-            :background-color="disableForm ? 'disabled' : 'primary'"
+            :readonly="cFormDisabled"
+            :color="cFormDisabled ? 'disabled' : 'primary'"
+            :background-color="cFormDisabled ? 'disabled' : 'primary'"
           />
         </v-col>
         <v-col cols="12" sm="3" class="mt-4" align="end">
@@ -40,7 +41,7 @@
             outlined
             @click="emitSkill()"
             color="primary"
-            :disabled="disableForm"
+            :disabled="cFormDisabled"
           >
             Add Skill
           </v-btn>
@@ -62,7 +63,6 @@ export default {
       skills: [],
       loadingSkills: false,
       validForm: false,
-      disableForm: true,
       selectedSkill: null,
       ratingValue: 3,
       rules: {
@@ -72,6 +72,19 @@ export default {
       }
     }
   },
+  computed: {
+    cFormDisabled() {
+      return this.$store.getters['skill/getSkillsCount'] >= 10;
+    },
+    cSkills() {
+      return this.$store.getters['skill/getSkills'];
+    }
+  },
+  watch: {
+    cSkills() {
+      this.getSkills();
+    }
+  },
   mounted () {
     this.getSkills();
   },
@@ -79,17 +92,22 @@ export default {
     async getSkills() {
       this.loadingSkills = true;
       this.skills = await Service.getSkills();
+      if(this.cSkills.length) {
+        this.skills = this.skills.filter(skill => {
+          return !this.cSkills.map(selectedSkill=> selectedSkill.id).includes(skill.id);
+        })
+      }
       this.loadingSkills = false;
     },
     emitSkill(){
       if(!this.$refs.form.validate()) return;
       const data = {
-        skill: this.selectedSkill,
+        ...this.selectedSkill,
         rating: this.ratingValue
       }
       this.$emit('newSkill', data)
-      console.log(data)
       this.$refs.form.reset()
+      this.getSkills();
       this.ratingValue = 3;
     }
   },
