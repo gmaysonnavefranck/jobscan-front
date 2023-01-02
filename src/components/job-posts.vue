@@ -2,7 +2,7 @@
   <v-row class="ma-1">
     <v-col cols="12" sm="4" v-for="job in jobs" :key="job.id">
       <v-card outlined>
-        <v-card-title class="text-wrap title">
+        <v-card-title class="text-wrap job-post__title">
           {{ job.title }} @ {{job.company.name}}
         </v-card-title>
         <v-card-subtitle>
@@ -45,8 +45,8 @@ export default {
 }
 </script>
 
-<style>
-  .title {
+<style scoped>
+  .job-post__title {
     word-break: break-word;
   }
 </style>

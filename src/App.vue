@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <v-row>
+      <v-row class="ml-3">
         <v-col align="center" cols="12">
           <skill-form @newSkill="(skill) => addSkill(skill)"/>
         </v-col>
@@ -24,8 +24,8 @@
 <script>
 import Service from '@/service/service'
 import JobPosts from './components/job-posts'
-import SkillForm from './components/skill-form'
-import SkillList from './components/skill-list.vue'
+import SkillForm from './components/form/skill-form'
+import SkillList from './components/list/skill-list.vue'
 
 export default {
   name: 'App',

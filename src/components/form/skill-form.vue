@@ -53,7 +53,7 @@
 
 <script>
 import Service from '@/service/service'
-import Rating from '@/components/rating.vue'
+import Rating from './rating.vue'
 export default {
   components: {
     Rating,
