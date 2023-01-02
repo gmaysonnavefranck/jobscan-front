@@ -7,14 +7,12 @@ export default {
   },
 
   async getJobPostings(skills) {
-    console.log(skills)
     let queryString = '';
     skills.forEach((skill, index) => {
       if(queryString) queryString += '&'
-      queryString += `skill[${skill.toLowerCase()}]=${++index}`
+      queryString += `skill[${skill.name.toLowerCase()}]=${++index}`
     })
     const { data } = await apiClient.get(`postings/search/skills?${queryString}`)
-    console.log(data)
-
+    return data.results
   }
 }

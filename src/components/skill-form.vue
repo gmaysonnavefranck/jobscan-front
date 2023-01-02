@@ -90,14 +90,17 @@ export default {
   },
   methods: {
     async getSkills() {
-      this.loadingSkills = true;
-      this.skills = await Service.getSkills();
-      if(this.cSkills.length) {
-        this.skills = this.skills.filter(skill => {
-          return !this.cSkills.map(selectedSkill=> selectedSkill.id).includes(skill.id);
-        })
+      try {
+        this.loadingSkills = true;
+        this.skills = await Service.getSkills();
+        if(this.cSkills.length) {
+          this.skills = this.skills.filter(skill => {
+            return !this.cSkills.map(selectedSkill=> selectedSkill.id).includes(skill.id);
+          })
+        }
+      } finally {
+        this.loadingSkills = false;
       }
-      this.loadingSkills = false;
     },
     emitSkill(){
       if(!this.$refs.form.validate()) return;
