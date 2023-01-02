@@ -38,6 +38,7 @@
         </v-col>
         <v-col cols="12" sm="3" class="mt-4" align="end">
           <v-btn
+            data-testid="save-button"
             outlined
             @click="emitSkill()"
             color="primary"
@@ -63,7 +64,14 @@ export default {
       skills: [],
       loadingSkills: false,
       validForm: false,
-      selectedSkill: null,
+      selectedSkill: {
+        "id": 1,
+        "created_at": "2020-09-10T07:48:33.000000Z",
+        "updated_at": "2020-09-10T07:48:33.000000Z",
+        "deleted_at": "",
+        "name": "PHP",
+        "slug": "php"
+      },
       ratingValue: 3,
       rules: {
         required: [
