@@ -64,14 +64,7 @@ export default {
       skills: [],
       loadingSkills: false,
       validForm: false,
-      selectedSkill: {
-        "id": 1,
-        "created_at": "2020-09-10T07:48:33.000000Z",
-        "updated_at": "2020-09-10T07:48:33.000000Z",
-        "deleted_at": "",
-        "name": "PHP",
-        "slug": "php"
-      },
+      selectedSkill: null,
       ratingValue: 3,
       rules: {
         required: [
